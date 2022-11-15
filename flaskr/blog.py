@@ -7,7 +7,9 @@ from flaskr.auth import login_required
 from flaskr.db import get_db
 
 from flaskr.foliummaps import create_map_html
+from auth import *
 
+jumpMapDB= client['JumpMap']
 bp = Blueprint('blog', __name__)
 
 @bp.route('/')
