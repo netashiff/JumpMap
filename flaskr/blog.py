@@ -101,3 +101,39 @@ def delete(id):
     db.commit()
     return redirect(url_for('blog.index'))
 
+@bp.route('/newdropzone', methods=('GET', 'POST'))
+@login_required
+def add_dropzone():
+    if request.method == 'POST':
+        Zone_name = request.form['Zone_name']
+        State= request.form['State']
+        City = request.form['City']
+        Latitude = request.form['Latitude']
+        Longitude = request.form['Longitude']
+        img = request.form['img']
+        db = get_db()
+        error = None
+
+        if not Zone_name:
+            Zone_name = 'Zone_name is required.'
+
+        if error is None:
+            try:
+                Dropzone_collection = jumpMapDB['Dropzones']
+                DZ_info = {"Zone_name": Zone_name,
+                               "State": State,
+                               "City": City,
+                               "Latitude": Latitude,
+                               "Longitude": Longitude,
+                               "img": img,
+                               "Date Created": datetime.datetime.utcnow()}
+                document =Dropzone_collection.insert_one(DZ_info).inserted_id
+                print(jumpMapDB.list_collection_names())
+            except db.IntegrityError:
+                error = f"Dropzone {Zone_name} is already registered."
+            else:
+                return redirect(url_for("blog.create"))
+
+        flash(error)
+
+    return render_template('blog/New_dropzone.html')
