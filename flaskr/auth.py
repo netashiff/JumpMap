@@ -19,6 +19,10 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        email = request.form['email']
+        age = request.form['age']
         db = get_db()
         error = None
 
@@ -32,6 +36,10 @@ def register():
                 userCollection = jumpMapDB[username]
                 information = {"Username": username,
                                "Password": password,
+                               "First Name": first_name,
+                               "Last Name": last_name,
+                               "EMail": email,
+                               "Age": age,
                                "Date Created": datetime.datetime.utcnow()}
                 document = userCollection.insert_one(information).inserted_id
                 print(jumpMapDB.list_collection_names())
