@@ -6,7 +6,12 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from flaskr.db import get_db
+from pymongo import MongoClient
+import datetime
 
+client = MongoClient('mongodb://localhost:27017')
+
+jumpMapDB = client['JumpMap']
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 @bp.route('/register', methods=('GET', 'POST'))
@@ -24,6 +29,12 @@ def register():
 
         if error is None:
             try:
+                userCollection = jumpMapDB[username]
+                information = {"Username": username,
+                               "Password": password,
+                               "Date Created": datetime.datetime.utcnow()}
+                document = userCollection.insert_one(information).inserted_id
+                print(jumpMapDB.list_collection_names())
                 db.execute(
                     "INSERT INTO user (username, password) VALUES (?, ?)",
                     (username, generate_password_hash(password)),
