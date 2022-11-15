@@ -7,12 +7,10 @@ from flaskr.auth import login_required
 from flaskr.db import get_db
 
 from flaskr.foliummaps import create_map_html
-
 from auth import *
 
 jumpMapDB= client['JumpMap']
 bp = Blueprint('blog', __name__)
-
 
 @bp.route('/')
 def index():
@@ -27,7 +25,6 @@ def index():
     folium_map = create_map_html(start_coords)
 
     return render_template('blog/index.html', posts=posts, folium_map=folium_map)
-
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
@@ -54,7 +51,6 @@ def create():
 
     return render_template('blog/create.html')
 
-
 def get_post(id, check_author=True):
     post = get_db().execute(
         'SELECT p.id, title, body, created, author_id, username'
@@ -70,7 +66,6 @@ def get_post(id, check_author=True):
         abort(403)
 
     return post
-
 
 @bp.route('/<int:id>/update', methods=('GET', 'POST'))
 @login_required
@@ -99,7 +94,6 @@ def update(id):
 
     return render_template('blog/update.html', post=post)
 
-
 @bp.route('/<int:id>/delete', methods=('POST',))
 @login_required
 def delete(id):
@@ -108,7 +102,6 @@ def delete(id):
     db.execute('DELETE FROM post WHERE id = ?', (id,))
     db.commit()
     return redirect(url_for('blog.index'))
-
 
 @bp.route('/newdropzone', methods=('GET', 'POST'))
 @login_required
