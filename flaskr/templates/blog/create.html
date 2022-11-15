@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}New Post{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="title">Title</label>
+    <input name="title" id="title" value="{{ request.form['title'] }}" required>
+    <label for="body">Body</label>
+    <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
+    <label for="username">Username</label>
+    <input name="username" id="username" required>
+
+    --// add drop zone name selecting
+    -- maybe as a number as first
+    <label for="location">location</label>
+    <input type="number" name="Location" id="location" required>
+
+    <label for="Partners">Partners for the dive:</label>
+    <input name="Partners" id="Partners">
+
+    <label for="Jump_number">Jump number</label>
+    <input type="number" name="Jump_number" id="Jump_number" required>
+
+    <label for="Dive_date">Dive date:</label>
+    <input type="date" id="Dive_date" name="trip-start" value="2018-01-1"
+       min="2018-01-01" max="2022-12-31">
+
+    <legend>Would you reccomand?</legend>
+    <div>
+      <input type="radio" id="contactChoice1" name="reccomendation" value="yes" />
+      <label for="contactChoice1">Yes</label>
+
+    </div><div>
+      <input type="radio" id="contactChoice2" name="reccomendation" value="No" />
+      <label for="contactChoice2">No</label>
+    </div>
+    -- the image which we add
+    <label for="img">Select image:</label>
+    <input type="file" id="img" name="img" accept="image/*">
+    <input type="submit" value="Save">
+  </form>
+{% endblock %}

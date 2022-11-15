@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}New Drop zone% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="Zone_name">Zone_name</label>
+    <input name="Zone_name" id="Zone_name" required>
+
+    <label for="Latitude">Latitude</label>
+    <input type="number" name="Latitude" id="Latitude" required>
+
+    <label for="Longitude">Longitude:</label>
+    <input name="Longitude" id="Longitude">
+      -- selecting from computer
+    <label for="img">Select image:</label>
+    <input type="file" id="img" name="img" accept="image/*">
+
+    <input type="submit" value="NewZone">
+  </form>
+{% endblock %}
