@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}New Dive{% endblock %}</h1>
+  <h1>{% block title %}New Jump{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -17,13 +17,14 @@
     -- maybe as a number as first
     <label for="location">location</label>
     <input type="number" name="Location" id="location" required>
+    <!-- TODO: could be reasong crashing
     -- trying to look gender semester to check if selection worked
     <select name="Gender Selection" class="Input">
           {% for o in data %}
           <option value="{{ o.gender }}">{{ o.gender }}</option>
           {% endfor %}
     </select>
-
+    -->
     <label for="Partners">Partners for the dive:</label>
     <input name="Partners" id="Partners">
 
@@ -43,9 +44,14 @@
       <input type="radio" id="contactChoice2" name="reccomendation" value="No" />
       <label for="contactChoice2">No</label>
     </div>
+
+    <!-- TODO: Add back in once working
     -- the image which we add
     <label for="img">Select image:</label>
     <input type="file" id="img" name="img" accept="image/*">
+    -->
+
     <input type="submit" value="Save">
+
   </form>
 {% endblock %}

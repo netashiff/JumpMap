@@ -53,7 +53,7 @@ def create():
             db.commit()
             return redirect(url_for('blog.index'))
 
-    return render_template('blog/create.html')
+    return render_template('blog/newjump.html')
 
 def get_post(id, check_author=True):
     post = get_db().execute(
@@ -165,8 +165,8 @@ def add_Jump():
 
         if error is None:
             try:
-                Dropzone_collection = jumpMapDB[USERNAME]
-                DZ_info = {"username": username,
+                userJumps_collection = jumpMapDB[username]
+                jump_info = {"username": username,
                            "location": location,
                            "Partners": Partners,
                            "Jump_number": Jump_number,
@@ -174,7 +174,7 @@ def add_Jump():
                            "recommendation": reccomendation,
                            "img": img,
                            "Date Created": datetime.datetime.utcnow()}
-                document = Dropzone_collection.insert_one(DZ_info).inserted_id
+                document = userJumps_collection.insert_one(jump_info).inserted_id
                 print(jumpMapDB.list_collection_names())
             except db.IntegrityError:
                 error = f"username {username} is already registered."
@@ -183,4 +183,4 @@ def add_Jump():
 
         flash(error)
 
-    return render_template('blog/create.html')
+    return render_template('blog/newjump.html')
