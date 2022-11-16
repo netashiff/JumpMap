@@ -140,3 +140,44 @@ def add_dropzone():
         flash(error)
 
     return render_template('blog/New_dropzone.html')
+
+
+#try to input the new jump
+@bp.route('/newdJump', methods=('GET', 'POST'))
+@login_required
+def add_Jump():
+    if request.method == 'POST':
+        username = request.form['username']
+        location = request.form['location']
+        Partners = request.form['Partners']
+        Jump_number = request.form['Jump_number']
+        Dive_date = request.form['Dive_date']
+        reccomendation = request.form['reccomendation']
+        img = request.form['img']
+        db = get_db()
+        error = None
+
+        if not username:
+            username = 'username is required.'
+
+        if error is None:
+            try:
+                Dropzone_collection = jumpMapDB['Jumps']
+                DZ_info = {"username": username,
+                           "location": location,
+                           "Partners": Partners,
+                           "Jump_number": Jump_number,
+                           "Dive_date": Dive_date,
+                           "recommendation": reccomendation,
+                           "img": img,
+                           "Date Created": datetime.datetime.utcnow()}
+                document = Dropzone_collection.insert_one(DZ_info).inserted_id
+                print(jumpMapDB.list_collection_names())
+            except db.IntegrityError:
+                error = f"username {username} is already registered."
+            else:
+                return redirect(url_for("base"))
+
+        flash(error)
+
+    return render_template('blog/create.html')
