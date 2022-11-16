@@ -17,6 +17,12 @@
     -- maybe as a number as first
     <label for="location">location</label>
     <input type="number" name="Location" id="location" required>
+    -- trying to look gender semester to check if selection workd
+    <select name="Gender Selection" class="Input">
+          {% for o in data %}
+          <option value="{{ o.gender }}">{{ o.gender }}</option>
+          {% endfor %}
+    </select>
 
     <label for="Partners">Partners for the dive:</label>
     <input name="Partners" id="Partners">
@@ -25,7 +31,7 @@
     <input type="number" name="Jump_number" id="Jump_number" required>
 
     <label for="Dive_date">Dive date:</label>
-    <input type="date" id="Dive_date" name="trip-start" value="2018-01-1"
+    <input type="date" id="Dive_date" name="Dive_date" value="2018-01-1"
        min="2018-01-01" max="2022-12-31">
 
     <legend>Would you reccomand?</legend>

@@ -12,8 +12,8 @@
     {% else %}
       <li><a href="{{ url_for('auth.register') }}">Register</a>
       <li><a href="{{ url_for('auth.login') }}">Log In</a>
-      <li><a href="{{url_for('blog.New_dropzone)}}"> New Dropzone</a>
-      <li><a href="{{url_for('blog.create)}}"> New Jump</a>
+      <li><a href="{{ url_for('blog.index') }}">Home page</a>
+
     {% endif %}
   </ul>
 </nav>
