@@ -8,6 +8,9 @@ from flaskr.db import get_db
 
 from flaskr.foliummaps import create_map_html
 from pymongo import MongoClient
+import datetime
+
+from flaskr.auth import *
 
 client = MongoClient('mongodb://localhost:27017')
 jumpMapDB = client['JumpMap']
@@ -118,7 +121,7 @@ def add_dropzone():
         error = None
 
         if not Zone_name:
-            Zone_name = 'Zone_name is required.'
+            Zone_name = 'Dropzone name is required.'
 
         if error is None:
             try:
@@ -130,7 +133,7 @@ def add_dropzone():
                                "Longitude": Longitude,
                                "img": img,
                                "Date Created": datetime.datetime.utcnow()}
-                document =Dropzone_collection.insert_one(DZ_info).inserted_id
+                document = Dropzone_collection.insert_one(DZ_info).inserted_id
                 print(jumpMapDB.list_collection_names())
             except db.IntegrityError:
                 error = f"Dropzone {Zone_name} is already registered."
@@ -143,7 +146,7 @@ def add_dropzone():
 
 
 #try to input the new jump
-@bp.route('/newdJump', methods=('GET', 'POST'))
+@bp.route('/newJump', methods=('GET', 'POST'))
 @login_required
 def add_Jump():
     if request.method == 'POST':
@@ -162,7 +165,7 @@ def add_Jump():
 
         if error is None:
             try:
-                Dropzone_collection = jumpMapDB['Jumps']
+                Dropzone_collection = jumpMapDB[USERNAME]
                 DZ_info = {"username": username,
                            "location": location,
                            "Partners": Partners,

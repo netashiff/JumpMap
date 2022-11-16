@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}New Drop zone% endblock %}</h1>
+  <h1>{% block title %}New Dropzone</h1>
 {% endblock %}
 
 {% block content %}
   <form method="post">
-    <label for="Zone_name">Zone_name</label>
+    <label for="Zone_name">Dropzone Name</label>
     <input name="Zone_name" id="Zone_name" required>
 
     <label for="State">State</label>
     <input type="text" name="State" id="State">
 
-     <label for="City">Latitude</label>
+     <label for="City">City</label>
     <input type="text" name="City" id="City" required>
 
     <label for="Latitude">Latitude</label>
@@ -26,4 +26,5 @@
 
     <input type="submit" value="NewZone">
   </form>
+{% endblock %}
 {% endblock %}

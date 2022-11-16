@@ -9,6 +9,7 @@ from flaskr.db import get_db
 from pymongo import MongoClient
 import datetime
 
+USERNAME = ''
 client = MongoClient('mongodb://localhost:27017')
 
 jumpMapDB = client['JumpMap']
@@ -35,6 +36,7 @@ def register():
         if error is None:
             try:
                 userCollection = jumpMapDB[username]
+                USERNAME = username
                 information = {"Username": username,
                                "Password": password,
                                "First Name": first_name,
@@ -57,7 +59,6 @@ def register():
         flash(error)
 
     return render_template('auth/register.html')
-
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
@@ -93,6 +94,7 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
+        USERNAME = user_id
         g.user = get_db().execute(
             'SELECT * FROM user WHERE id = ?', (user_id,)
         ).fetchone()
