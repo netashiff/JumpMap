@@ -39,4 +39,9 @@ def create_app(test_config=None):
     app.register_blueprint(blog.bp)
     app.add_url_rule('/', endpoint='index')
 
+    # register Add Dropzone Blueprint
+    from . import adddropzone
+    app.register_blueprint(adddropzone.bp)
+    app.add_url_rule('/adddropzone', endpoint='index')
+    
     return app
