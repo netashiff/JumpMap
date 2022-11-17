@@ -86,7 +86,7 @@ def login():
     return render_template('auth/login.html')
 
 
-# Checks if a user is logged in before any. If there is no user id, or it doesnt exit, g.user will be None
+# Checks if a user is logged in before any. If there is no user id, or it doesn't exit, g.user will be None
 @bp.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')

@@ -179,7 +179,7 @@ def add_Jump():
             except db.IntegrityError:
                 error = f"username {username} is already registered."
             else:
-                return redirect(url_for("base"))
+                return redirect(url_for("templates/base.html"))
 
         flash(error)
 
