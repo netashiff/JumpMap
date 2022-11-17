@@ -7,7 +7,7 @@ from flaskr.auth import login_required
 
 bp = Blueprint('addjump', __name__)
 
-@bp.route('/addjump')
+@bp.route('/addJump')
 def index():
     db = get_db()
     posts = db.execute(

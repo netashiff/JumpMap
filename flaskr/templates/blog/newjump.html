@@ -8,8 +8,8 @@
   <form method="post">
     <label for="title">Title</label>
     <input name="title" id="title" value="{{ request.form['title'] }}" required>
-    <label for="body">Body</label>
-    <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
+    <label for="description">Description</label>
+    <textarea name="description" id="description">{{ request.form['description'] }}</textarea>
     <label for="username">Username</label>
     <input name="username" id="username" required>
 
@@ -25,23 +25,22 @@
           {% endfor %}
     </select>
     -->
-    <label for="Partners">Partners for the dive:</label>
-    <input name="Partners" id="Partners">
+    <label for="partners">Partners for the dive:</label>
+    <input name="Partners" id="partners">
 
     <label for="Jump_number">Jump number</label>
-    <input type="number" name="Jump_number" id="Jump_number" required>
+    <input type="number" name="Jump Number" id="Jump_number" required>
 
     <label for="Dive_date">Dive date:</label>
-    <input type="date" id="Dive_date" name="Dive_date" value="2018-01-1"
-       min="2018-01-01" max="2022-12-31">
+    <input type="date" id="Dive_date" name="Dive_date" value="2018-01-01">
 
-    <legend>Would you reccomand?</legend>
+    <legend>Would you recommend?</legend>
     <div>
-      <input type="radio" id="contactChoice1" name="reccomendation" value="yes" />
+      <input type="radio" id="contactChoice1" name="recommendation" value="Yes" />
       <label for="contactChoice1">Yes</label>
 
     </div><div>
-      <input type="radio" id="contactChoice2" name="reccomendation" value="No" />
+      <input type="radio" id="contactChoice2" name="recommendation" value="No" />
       <label for="contactChoice2">No</label>
     </div>
 

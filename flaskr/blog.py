@@ -148,15 +148,16 @@ def add_dropzone():
 #try to input the new jump
 @bp.route('/newJump', methods=('GET', 'POST'))
 @login_required
-def add_Jump():
+def add_jump():
     if request.method == 'POST':
+        title = request.form['title']
+        description = request.form['description']
         username = request.form['username']
         location = request.form['location']
-        Partners = request.form['Partners']
-        Jump_number = request.form['Jump_number']
-        Dive_date = request.form['Dive_date']
-        reccomendation = request.form['recommendation']
-        img = request.form['img']
+        partners = request.form['partners']
+        jump_number = request.form['Jump_number']
+        dive_date = request.form['Dive_date']
+        recommendation = request.form['recommendation']
         db = get_db()
         error = None
 
@@ -166,21 +167,21 @@ def add_Jump():
         if error is None:
             try:
                 userJumps_collection = jumpMapDB[username]
-                jump_info = {"username": username,
-                           "location": location,
-                           "Partners": Partners,
-                           "Jump_number": Jump_number,
-                           "Dive_date": Dive_date,
-                           "reccomendation": reccomendation,
-                           "img": img,
+                jump_info = {"Title": title,
+                             "Description": description,
+                             "Username": username,
+                           "Location": location,
+                           "Partners": partners,
+                           "Jump_number": jump_number,
+                           "Dive_date": dive_date,
+                           "recommendation": recommendation,
                            "Date Created": datetime.datetime.utcnow()}
                 document = userJumps_collection.insert_one(jump_info).inserted_id
                 print(jumpMapDB.list_collection_names())
-                return redirect(url_for('blog.index'))
             except db.IntegrityError:
                 error = f"username {username} is already registered."
-        else:
-            return redirect(url_for('blog.index'))
+            else:
+                return redirect(url_for('blog.index'))
 
         flash(error)
 
