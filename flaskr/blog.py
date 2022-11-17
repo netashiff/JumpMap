@@ -110,35 +110,30 @@ def add_dropzone():
         Latitude = request.form['Latitude']
         Longitude = request.form['Longitude']
         img = request.form['img']
-        db = get_db()
         error = None
 
         if not Zone_name:
             Zone_name = 'Dropzone name is required.'
 
         if error is None:
-            try:
-                Dropzone_collection = jumpMapDB['Dropzones']
-                DZ_info = {"Zone_name": Zone_name,
+            Dropzone_collection = jumpMapDB['Dropzones']
+            DZ_info = {"Zone_name": Zone_name,
                                "State": State,
                                "City": City,
                                "Latitude": Latitude,
                                "Longitude": Longitude,
                                "img": img,
                                "Date Created": datetime.datetime.utcnow()}
-                document = Dropzone_collection.insert_one(DZ_info).inserted_id
-                print(jumpMapDB.list_collection_names())
-            except db.IntegrityError:
-                error = f"Dropzone {Zone_name} is already registered."
-            else:
-                return redirect(url_for("blog.index"))
+            document = Dropzone_collection.insert_one(DZ_info).inserted_id
+            print(jumpMapDB.list_collection_names())
+            return redirect(url_for("blog.index"))
 
         flash(error)
 
     return render_template('blog/New_dropzone.html')
 
 
-#try to input the new jump
+#Input a new jump
 @bp.route('/newJump', methods=('GET', 'POST'))
 @login_required
 def add_jump():

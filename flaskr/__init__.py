@@ -47,6 +47,6 @@ def create_app(test_config=None):
     # register NewJump Blueprint
     from . import addjump
     app.register_blueprint(addjump.bp)
-    app.add_url_rule('/addJump', endpoint='index')
+    app.add_url_rule('/addjump', endpoint='index')
 
     return app
