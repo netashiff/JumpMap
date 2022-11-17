@@ -7,7 +7,7 @@
 {% block content %}
   <h2 class="content-head">{% block title %}Browse Dropzones{% endblock %}</h2>
   {% if g.user %}
-    <a class="action" href="{{ url_for('blog.create') }}">New</a>
+    <a class="action" href="{{ url_for('blog.newblogpost') }}">New Blog Post</a>
   {% endif %}
 
   <h3 class="content-subhead">{{points}}</h3>

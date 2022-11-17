@@ -30,12 +30,12 @@ def index():
 
     return render_template('blog/index.html', posts=posts, folium_map=folium_map)
 
-@bp.route('/create', methods=('GET', 'POST'))
+@bp.route('/newblogpost', methods=('GET', 'POST'))
 @login_required
-def create():
+def newblogpost():
     if request.method == 'POST':
         title = request.form['title']
-        body = request.form['body']
+        description = request.form['description']
         error = None
 
         if not title:
@@ -44,20 +44,13 @@ def create():
         if error is not None:
             flash(error)
         else:
-            db = get_db()
-            db.execute(
-                'INSERT INTO post (title, body, author_id)'
-                ' VALUES (?, ?, ?)',
-                (title, body, g.user['id'])
-            )
-            db.commit()
             return redirect(url_for('blog.index'))
 
-    return render_template('blog/newjump.html')
+    return render_template('blog/newblogpost.html')
 
 def get_post(id, check_author=True):
     post = get_db().execute(
-        'SELECT p.id, title, body, created, author_id, username'
+        'SELECT p.id, title, description, created, author_id, username'
         ' FROM post p JOIN user u ON p.author_id = u.id'
         ' WHERE p.id = ?',
         (id,)
@@ -78,7 +71,7 @@ def update(id):
 
     if request.method == 'POST':
         title = request.form['title']
-        body = request.form['body']
+        description = request.form['description']
         error = None
 
         if not title:
@@ -89,9 +82,9 @@ def update(id):
         else:
             db = get_db()
             db.execute(
-                'UPDATE post SET title = ?, body = ?'
+                'UPDATE post SET title = ?, description = ?'
                 ' WHERE id = ?',
-                (title, body, id)
+                (title, description, id)
             )
             db.commit()
             return redirect(url_for('blog.index'))
@@ -165,24 +158,18 @@ def add_jump():
             username = 'username is required.'
 
         if error is None:
-            try:
-                userJumps_collection = jumpMapDB[username]
-                jump_info = {"Title": title,
-                             "Description": description,
-                             "Username": username,
-                           "Location": location,
-                           "Partners": partners,
-                           "Jump_number": jump_number,
-                           "Dive_date": dive_date,
-                           "recommendation": recommendation,
-                           "Date Created": datetime.datetime.utcnow()}
-                document = userJumps_collection.insert_one(jump_info).inserted_id
-                print(jumpMapDB.list_collection_names())
-            except db.IntegrityError:
-                error = f"username {username} is already registered."
-            else:
-                return redirect(url_for('blog.index'))
-
-        flash(error)
+            userJumps_collection = jumpMapDB[username]
+            jump_info = {"Title": title,
+                        "Description": description,
+                        "Username": username,
+                        "Location": location,
+                        "Partners": partners,
+                        "Jump_number": jump_number,
+                        "Dive_date": dive_date,
+                        "Recommendation": recommendation,
+                        "Date Created": datetime.datetime.utcnow()}
+            document = userJumps_collection.insert_one(jump_info).inserted_id
+            print(jumpMapDB.list_collection_names())
+            return redirect(url_for('blog.index'))
 
     return render_template('blog/newjump.html')
