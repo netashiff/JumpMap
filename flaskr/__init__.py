@@ -39,4 +39,14 @@ def create_app(test_config=None):
     app.register_blueprint(blog.bp)
     app.add_url_rule('/', endpoint='index')
 
+    # register Blog Blueprint
+    from . import adddropzone
+    app.register_blueprint(adddropzone.bp)
+    app.add_url_rule('/adddropzone', endpoint='index')
+
+    # register New Jump Blueprint
+    from . import addjump
+    app.register_blueprint(addjump.bp)
+    app.add_url_rule('/addjump', endpoint='index')
+
     return app

@@ -138,7 +138,7 @@ def add_dropzone():
             except db.IntegrityError:
                 error = f"Dropzone {Zone_name} is already registered."
             else:
-                return redirect(url_for("blog.create"))
+                return redirect(url_for("blog.index"))
 
         flash(error)
 
@@ -155,7 +155,7 @@ def add_Jump():
         Partners = request.form['Partners']
         Jump_number = request.form['Jump_number']
         Dive_date = request.form['Dive_date']
-        reccomendation = request.form['reccomendation']
+        reccomendation = request.form['recommendation']
         img = request.form['img']
         db = get_db()
         error = None
@@ -171,15 +171,16 @@ def add_Jump():
                            "Partners": Partners,
                            "Jump_number": Jump_number,
                            "Dive_date": Dive_date,
-                           "recommendation": reccomendation,
+                           "reccomendation": reccomendation,
                            "img": img,
                            "Date Created": datetime.datetime.utcnow()}
                 document = userJumps_collection.insert_one(jump_info).inserted_id
                 print(jumpMapDB.list_collection_names())
+                return redirect(url_for('blog.index'))
             except db.IntegrityError:
                 error = f"username {username} is already registered."
-            else:
-                return redirect(url_for("templates/base.html"))
+        else:
+            return redirect(url_for('blog.index'))
 
         flash(error)
 
