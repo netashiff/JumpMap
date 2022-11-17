@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}New Dropzone</h1>
+  <h1>{% block title %}New Dropzone{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-  <form method="post">
+  <form method="POST">
     <label for="Zone_name">Dropzone Name</label>
     <input name="Zone_name" id="Zone_name" required>
 
@@ -26,5 +26,4 @@
 
     <input type="submit" value="Add New Dropzone">
   </form>
-{% endblock %}
 {% endblock %}

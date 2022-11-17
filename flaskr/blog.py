@@ -10,8 +10,6 @@ from flaskr.foliummaps import create_map_html
 from pymongo import MongoClient
 import datetime
 
-from flaskr.auth import *
-
 client = MongoClient('mongodb://localhost:27017')
 jumpMapDB = client['JumpMap']
 bp = Blueprint('blog', __name__)
@@ -20,7 +18,7 @@ bp = Blueprint('blog', __name__)
 def index():
     db = get_db()
     posts = db.execute(
-        'SELECT p.id, title, body, created, author_id, username'
+        'SELECT p.id, title, description, created, author_id, username'
         ' FROM post p JOIN user u ON p.author_id = u.id'
         ' ORDER BY created DESC'
     ).fetchall()
@@ -125,12 +123,11 @@ def add_dropzone():
                                "img": img,
                                "Date Created": datetime.datetime.utcnow()}
             document = Dropzone_collection.insert_one(DZ_info).inserted_id
-            print(jumpMapDB.list_collection_names())
             return redirect(url_for("blog.index"))
 
         flash(error)
 
-    return render_template('blog/New_dropzone.html')
+    return render_template('blog/new_dropzone.html')
 
 
 #Input a new jump
@@ -143,28 +140,26 @@ def add_jump():
         username = request.form['username']
         location = request.form['location']
         partners = request.form['partners']
-        jump_number = request.form['Jump_number']
-        dive_date = request.form['Dive_date']
-        recommendation = request.form['recommendation']
-        db = get_db()
+        jump_number = request.form['jump_number']
+        dive_date = request.form['dive_date']
         error = None
 
         if not username:
             username = 'username is required.'
 
         if error is None:
-            userJumps_collection = jumpMapDB[username]
+            user_jumps = jumpMapDB[username]
             jump_info = {"Title": title,
                         "Description": description,
                         "Username": username,
                         "Location": location,
                         "Partners": partners,
-                        "Jump_number": jump_number,
-                        "Dive_date": dive_date,
-                        "Recommendation": recommendation,
+                        "Jump Number": jump_number,
+                        "Date": dive_date,
                         "Date Created": datetime.datetime.utcnow()}
-            document = userJumps_collection.insert_one(jump_info).inserted_id
-            print(jumpMapDB.list_collection_names())
-            return redirect(url_for('blog.index'))
+            document = user_jumps.insert_one(jump_info).inserted_id
+            return redirect(url_for("blog.base"))
 
-    return render_template('blog/newjump.html')
+        flash(error)
+
+    return render_template('blog/new_jump.html')

@@ -16,4 +16,4 @@ def index():
         ' ORDER BY created DESC'
     ).fetchall()
 
-    return render_template('blog/New_dropzone.html')
+    return render_template('blog/new_dropzone.html')

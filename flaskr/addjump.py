@@ -16,4 +16,4 @@ def index():
         ' ORDER BY created DESC'
     ).fetchall()
 
-    return render_template('blog/newjump.html')
+    return render_template('blog/new_jump.html')
