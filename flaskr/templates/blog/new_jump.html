@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Add New Dive{% endblock %}</h1>
+  <h1>{% block title %}Add New Jump{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
   <form method="POST">
+    <label for="name">Jump Title</label>
+    <input name="name" id="name" required>
+
+    <label for="username">Username</label>
+    <input name="username" id="username" required>
+
     <label for="location">Location</label>
     <input name="location" id="location" required>
 
