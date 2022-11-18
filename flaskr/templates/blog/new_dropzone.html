@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}New Drop zone {% endblock %}</h1>
+  <h1>{% block title %}New Dropzone{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="Zone_name">Zone_name</label>
+  <form method="POST">
+    <label for="Zone_name">Dropzone Name</label>
     <input name="Zone_name" id="Zone_name" required>
 
     <label for="State">State</label>
@@ -16,14 +16,14 @@
     <input type="text" name="City" id="City" required>
 
     <label for="Latitude">Latitude</label>
-    <input type="number" step="0.0001" name="Latitude" id="Latitude" required>
+    <input type="number" name="Latitude" id="Latitude" required>
 
     <label for="Longitude">Longitude:</label>
-    <input type="number" step="0.0001" name="Longitude" id="Longitude">
+    <input type="text" name="Longitude" id="Longitude">
 
     <label for="img">Select image:</label>
     <input type="file" id="img" name="img" accept="image/*">
 
-    <input type="submit" value="NewZone">
+    <input type="submit" value="Add New Dropzone">
   </form>
 {% endblock %}
