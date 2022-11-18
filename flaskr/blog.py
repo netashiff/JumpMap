@@ -151,7 +151,6 @@ def add_Jump():
         #username = request.form['username']
         location = request.form['location']
         Partners = request.form['Partners']
-        Jump_number = request.form['Jump_number']
         Dive_date = request.form['Dive_date']
         #reccomendation = request.form['reccomendation']
         img = request.form['img']
@@ -168,10 +167,8 @@ def add_Jump():
         if error is None:
             try:
                 Dropzone_collection = jumpMapDB['Jumps']
-                DZ_info = {"username": username,
-                           "location": location,
+                DZ_info = {"location": location,
                            "Partners": Partners,
-                           "Jump_number": Jump_number,
                            "Dive_date": Dive_date,
                            "img": img}
                            #, "Date Created": datetime.datetime.utcnow()
