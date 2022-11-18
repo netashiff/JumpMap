@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}New Dive {% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="location">Zone_name</label>
+    <input name="location" id="Zone_name" required>
+
+    <label for="location">State</label>
+    <input type="text" name="State" id="State" required>
+
+     <label for="location">Location</label>
+    <input type="text" name="location" id="location" required>
+
+    <label for="Partners">Partners</label>
+    <input type="text" name="Partners" id="Partners">
+
+    <label for="Jump_number">Jump Number</label>
+    <input type="text" name="Jump_number" id="Jump_number">
+
+    <label for="Dive_date">Dive Date</label>
+    <input type="text" name="Dive_date" id="Dive_date">
+
+    <label for="img">Select image:</label>
+    <input type="file" id="img" name="img" accept="image/*">
+
+
+    <input type="submit" value="Add Jump">
+  </form>
+{% endblock %}

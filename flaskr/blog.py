@@ -121,6 +121,7 @@ def add_dropzone():
             Zone_name = 'Zone_name is required.'
 
         if error is None:
+            print("no error")
             try:
                 Dropzone_collection = jumpMapDB['Dropzones']
                 DZ_info = {"Zone_name": Zone_name,
@@ -128,14 +129,14 @@ def add_dropzone():
                                "City": City,
                                "Latitude": Latitude,
                                "Longitude": Longitude,
-                               "img": img,
-                               "Date Created": datetime.datetime.utcnow()}
+                               "img": img}
+                               #This line doesnt work -> , "Date Created": datetime.datetime.utcnow()}
                 document =Dropzone_collection.insert_one(DZ_info).inserted_id
                 print(jumpMapDB.list_collection_names())
             except db.IntegrityError:
                 error = f"Dropzone {Zone_name} is already registered."
             else:
-                return redirect(url_for("blog.create"))
+                return redirect(url_for("blog.index"))
 
         flash(error)
 
@@ -143,19 +144,23 @@ def add_dropzone():
 
 
 #try to input the new jump
-@bp.route('/newdJump', methods=('GET', 'POST'))
+@bp.route('/newjump', methods=('GET', 'POST'))
 @login_required
 def add_Jump():
     if request.method == 'POST':
-        username = request.form['username']
+        #username = request.form['username']
         location = request.form['location']
         Partners = request.form['Partners']
         Jump_number = request.form['Jump_number']
         Dive_date = request.form['Dive_date']
-        reccomendation = request.form['reccomendation']
+        #reccomendation = request.form['reccomendation']
         img = request.form['img']
         db = get_db()
         error = None
+
+        #Get username
+        from flaskr.auth import get_logged_in_user
+        username = get_logged_in_user()
 
         if not username:
             username = 'username is required.'
@@ -168,16 +173,16 @@ def add_Jump():
                            "Partners": Partners,
                            "Jump_number": Jump_number,
                            "Dive_date": Dive_date,
-                           "recommendation": reccomendation,
-                           "img": img,
-                           "Date Created": datetime.datetime.utcnow()}
+                           "img": img}
+                           #, "Date Created": datetime.datetime.utcnow()
                 document = Dropzone_collection.insert_one(DZ_info).inserted_id
                 print(jumpMapDB.list_collection_names())
+
             except db.IntegrityError:
                 error = f"username {username} is already registered."
             else:
-                return redirect(url_for("base"))
+                return redirect(url_for("blog.index"))
 
         flash(error)
 
-    return render_template('blog/create.html')
+    return render_template('blog/New_jump.html')

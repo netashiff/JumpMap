@@ -97,6 +97,9 @@ def load_logged_in_user():
             'SELECT * FROM user WHERE id = ?', (user_id,)
         ).fetchone()
 
+def get_logged_in_user():
+    return session.get('user_id')
+
 
 @bp.route('/logout')
 def logout():
