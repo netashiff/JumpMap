@@ -149,7 +149,6 @@ def add_dropzone():
 def add_Jump():
     if request.method == 'POST':
         title = request.form['name']
-        username = request.form['username']
         location = request.form['location']
         Partners = request.form['Partners']
         Dive_date = request.form['Dive_date']
@@ -167,7 +166,8 @@ def add_Jump():
 
         if error is None:
             try:
-                Dropzone_collection = jumpMapDB['Jumps']
+                print(username)
+                userJumpsCollection = jumpMapDB[str(username)]
                 DZ_info = {"Name": title,
                            "Username": username,
                             "Location": location,
@@ -175,7 +175,7 @@ def add_Jump():
                            "Dive_date": Dive_date,
                            "img": img}
                            #, "Date Created": datetime.datetime.utcnow()
-                document = Dropzone_collection.insert_one(DZ_info).inserted_id
+                document = userJumpsCollection.insert_one(DZ_info).inserted_id
                 print(jumpMapDB.list_collection_names())
 
             except db.IntegrityError:
