@@ -11,7 +11,7 @@ def printUsername():
 
 def create_points(map):
     logged_in = get_logged_in_user()
-    user_collection = JumpMapDB[str(2)]
+    user_collection = JumpMapDB[str(logged_in)]
     for document in user_collection.find():
         latitude = document["Latitude"]
         longtitude = document["Longtitude"]
