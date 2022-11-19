@@ -17,7 +17,7 @@ bp = Blueprint('blog', __name__)
 def index():
     db = get_db()
     posts = db.execute(
-        'SELECT p.id, title, body, created, author_id, username'
+        'SELECT p.id, title, description, created, author_id, username'
         ' FROM post p JOIN user u ON p.author_id = u.id'
         ' ORDER BY created DESC'
     ).fetchall()
@@ -148,7 +148,7 @@ def add_dropzone():
 @login_required
 def add_Jump():
     if request.method == 'POST':
-        #username = request.form['username']
+        title = request.form['name']
         location = request.form['location']
         Partners = request.form['Partners']
         Dive_date = request.form['Dive_date']
@@ -166,13 +166,16 @@ def add_Jump():
 
         if error is None:
             try:
-                Dropzone_collection = jumpMapDB['Jumps']
-                DZ_info = {"location": location,
+                print(username)
+                userJumpsCollection = jumpMapDB[str(username)]
+                DZ_info = {"Name": title,
+                           "Username": username,
+                            "Location": location,
                            "Partners": Partners,
                            "Dive_date": Dive_date,
                            "img": img}
                            #, "Date Created": datetime.datetime.utcnow()
-                document = Dropzone_collection.insert_one(DZ_info).inserted_id
+                document = userJumpsCollection.insert_one(DZ_info).inserted_id
                 print(jumpMapDB.list_collection_names())
 
             except db.IntegrityError:
