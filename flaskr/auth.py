@@ -72,6 +72,7 @@ def login():
         for document in usercol.find():
             USERNAME = document["Username"]
             USERPASS = document["Password"]
+            break
 
         user = USERNAME
 
