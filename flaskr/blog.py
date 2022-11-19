@@ -16,16 +16,11 @@ bp = Blueprint('blog', __name__)
 @bp.route('/')
 def index():
     db = get_db()
-    posts = db.execute(
-        'SELECT p.id, title, description, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' ORDER BY created DESC'
-    ).fetchall()
 
     start_coords = (25.775084, -80.1947)
     folium_map = create_map_html(start_coords)
 
-    return render_template('blog/index.html', posts=posts, folium_map=folium_map)
+    return render_template('blog/index.html', folium_map=folium_map)
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
@@ -152,6 +147,7 @@ def add_Jump():
         location = request.form['location']
         Partners = request.form['Partners']
         Dive_date = request.form['Dive_date']
+        color = request.form['colors']
         #reccomendation = request.form['reccomendation']
         img = request.form['img']
         db = get_db()
@@ -173,6 +169,7 @@ def add_Jump():
                             "Location": location,
                            "Partners": Partners,
                            "Dive_date": Dive_date,
+                           "Color": color,
                            "img": img}
                            #, "Date Created": datetime.datetime.utcnow()
                 document = userJumpsCollection.insert_one(DZ_info).inserted_id

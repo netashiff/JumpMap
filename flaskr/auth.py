@@ -64,14 +64,14 @@ def login():
         error = None
 
         #Check if user exists and get pass
-        usercol = jumpMapDB["username"]
+        usercol = jumpMapDB[username]
         myquery = {"Username": username}
         mydoc = usercol.find(myquery)
         USERPASS = ''
         USERID = ''
-        for x in mydoc:
-            USERNAME = username
-            USERPASS = x['Password']
+        for document in usercol.find():
+            USERNAME = document["Username"]
+            USERPASS = document["Password"]
 
         user = USERNAME
 
