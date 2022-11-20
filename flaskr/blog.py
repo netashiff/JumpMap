@@ -145,6 +145,8 @@ def add_Jump():
     if request.method == 'POST':
         title = request.form['name']
         location = request.form['location']
+        latitude = request.form['latitude']
+        longitude = request.form['longitude']
         Partners = request.form['Partners']
         Dive_date = request.form['Dive_date']
         color = request.form['colors']
@@ -167,6 +169,8 @@ def add_Jump():
                 DZ_info = {"Name": title,
                            "Username": username,
                             "Location": location,
+                           "Latitude": latitude,
+                           "Longitude": longitude,
                            "Partners": Partners,
                            "Dive_date": Dive_date,
                            "Color": color,
