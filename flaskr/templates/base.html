@@ -1,5 +1,5 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} - Flaskr</title>
+<title>JumpMap</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='pure.css') }}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,8 +7,8 @@
   <h1><a href="{{ url_for('blog.index') }}">JumpMap</a></h1>
   <ul>
     {% if g.user %}
-      <li><a class="action" href="{{ url_for('blog.add_dropzone') }}">Add Dropzone</a>
-      <li><a class="action" href="{{ url_for('blog.add_Jump') }}">Add Dive</a>
+      <li><a class="adddzandjump" href="{{ url_for('blog.add_dropzone') }}">Add Dropzone</a>
+      <li><a class="adddzandjump" href="{{ url_for('blog.add_Jump') }}">Add Dive</a>
     {% endif %}
   </ul>
   <ul>
