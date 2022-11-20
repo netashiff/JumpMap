@@ -15,8 +15,10 @@ def create_points(map):
     for document in user_collection.find().skip(1):
         latitude = document["Latitude"]
         longitude = document["Longitude"]
+        #jump_number = document["Jump Number"]
         title = document["Name"]
         mc = document["Color"]
+        #multi_linepu = str(title)<br>Jump Number: str()
         folium.Marker(location=[str(latitude),str(longitude)], popup = str(title), icon=folium.Icon(color=str(mc))).add_to(map)
 def create_map_html(start_coords):
     printUsername()

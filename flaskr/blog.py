@@ -144,6 +144,7 @@ def add_dropzone():
 def add_Jump():
     if request.method == 'POST':
         title = request.form['name']
+        jump_number = request.form['jumpnumber']
         location = request.form['location']
         latitude = request.form['latitude']
         longitude = request.form['longitude']
@@ -167,7 +168,7 @@ def add_Jump():
                 print(username)
                 userJumpsCollection = jumpMapDB[str(username)]
                 DZ_info = {"Name": title,
-                           "Username": username,
+                           "Jump Number": jump_number,
                             "Location": location,
                            "Latitude": latitude,
                            "Longitude": longitude,
