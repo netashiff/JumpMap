@@ -15,11 +15,14 @@ def create_points(map):
     for document in user_collection.find().skip(1):
         latitude = document["Latitude"]
         longitude = document["Longitude"]
-        #jump_number = document["Jump Number"]
+        jump_number = document["Jump Number"]
+        jump_date = document["Dive_date"]
         title = document["Name"]
         mc = document["Color"]
-        #multi_linepu = str(title)<br>Jump Number: str()
-        folium.Marker(location=[str(latitude),str(longitude)], popup = str(title), icon=folium.Icon(color=str(mc))).add_to(map)
+        multi_linepu = f'''{title}<br>Jump Number: {jump_number}<br>Date: {jump_date}'''
+        iframe = folium.IFrame(multi_linepu,width=150, height=100)
+        show_info = folium.Popup(iframe, max_width=150)
+        folium.Marker(location=[str(latitude),str(longitude)], popup = show_info, icon=folium.Icon(color=str(mc))).add_to(map)
 def create_map_html(start_coords):
     printUsername()
     m = folium.Map(location=start_coords, zoom_start=14)
