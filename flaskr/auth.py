@@ -60,8 +60,8 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-
         error = None
+        USERNAME = ''
 
         #Check if user exists and get pass
         usercol = jumpMapDB[username]
@@ -75,13 +75,11 @@ def login():
             break
 
         user = USERNAME
-
-        if user is None:
-            error = 'Incorrect username.'
-
         passwordok = False
+        if user != username:
+            error = 'Incorrect username. '
 
-        if USERPASS == password:
+        elif USERPASS == password:
             passwordok = True
 
         elif not passwordok:
